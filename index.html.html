@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OPERATION: GOLDEN FINALE - Classified Briefing</title>
+    <title>SPADE : FINAL MISSION</title>
     <style>
         /* --- DESIGN SYSTEM & FONTS --- */
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Special+Elite&family=Montserrat:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=600;800&family=Special+Elite&family=Montserrat:wght@300;400;700&display=swap');
 
         :root {
             --gold-primary: #D4AF37;
@@ -33,7 +33,6 @@
             background-image: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
         }
 
-        /* --- UTILITIES & ANIMATIONS --- */
         .hidden {
             display: none !important;
         }
@@ -54,11 +53,6 @@
             0% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.7); }
             70% { box-shadow: 0 0 0 15px rgba(139, 0, 0, 0); }
             100% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0); }
-        }
-
-        @keyframes typewriter {
-            from { width: 0; }
-            to { width: 100%; }
         }
 
         /* --- AUDIO CONTROLLER --- */
@@ -83,6 +77,13 @@
             border-radius: 4px;
         }
 
+        .audio-btn.playing {
+            background: var(--spy-red);
+            border-color: var(--spy-red-bright);
+            color: white;
+            animation: pulse-red 2s infinite;
+        }
+
         .audio-btn:hover {
             background: var(--gold-primary);
             color: var(--bg-black);
@@ -102,13 +103,11 @@
             overflow: hidden;
         }
 
-        /* Hollywood Spotlight Effects */
         .spotlight-left, .spotlight-right {
             position: absolute;
             bottom: -10%;
             width: 30vw;
             height: 120vh;
-            background: transform;
             background: linear-gradient(to top, rgba(214, 175, 87, 0.15) 0%, rgba(214, 175, 87, 0) 80%);
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
             transform-origin: bottom center;
@@ -118,13 +117,11 @@
         .spotlight-left { left: 10%; animation: spotlight 8s infinite ease-in-out; }
         .spotlight-right { right: 10%; animation: spotlight 10s infinite ease-in-out reverse; }
 
-        /* Oscar Trophy Silhouette SVG */
-        .trophy-svg {
-            width: 80px;
+        .logo-img {
+            width: 250px;
             height: auto;
-            fill: url(#gold-grad);
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px rgba(214, 175, 55, 0.5));
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 15px rgba(214, 175, 55, 0.6));
         }
 
         .main-title {
@@ -176,7 +173,6 @@
             padding: 20px;
         }
 
-        /* --- MISSION DOSSIER (MANILA FILE STYLE) --- */
         .dossier {
             background-color: #1e1c18;
             border: 1px solid #3a3326;
@@ -184,20 +180,8 @@
             padding: 40px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.7);
             position: relative;
-            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 100% 30px;
         }
 
-        .dossier::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(rgba(139,0,0,0.03), rgba(0,0,0,0)), url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
-            opacity: 0.15;
-            pointer-events: none;
-        }
-
-        /* Stamps */
         .stamp {
             position: absolute;
             font-family: 'Special Elite', monospace;
@@ -227,7 +211,6 @@
             transform: rotate(15deg);
         }
 
-        /* Cinematic Text */
         .cinematic-text {
             font-family: 'Special Elite', monospace;
             font-size: 1.1rem;
@@ -239,43 +222,76 @@
             padding-left: 20px;
         }
 
-        /* --- SELECT SYSTEM --- */
-        .agent-select-sector {
+        /* --- LOGIN SYSTEM CODES --- */
+        .login-sector {
             margin: 40px 0;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 30px;
-            border: 1px solid rgba(214, 175, 55, 0.2);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 35px;
+            border: 1px solid var(--spy-red);
             border-radius: 4px;
+            box-shadow: inset 0 0 15px rgba(139, 0, 0, 0.2);
         }
 
         .sector-title {
             font-family: 'Cinzel', serif;
             color: var(--gold-primary);
             font-size: 1.3rem;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             letter-spacing: 2px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        select {
-            width: 100%;
-            background: #111;
-            border: 1px solid var(--gold-dark);
-            color: var(--gold-light);
-            padding: 12px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            outline: none;
-            transition: all 0.3s ease;
+        .input-group {
+            display: flex;
+            gap: 15px;
         }
 
-        select:focus {
-            border-color: var(--gold-primary);
-            box-shadow: 0 0 10px rgba(214, 175, 55, 0.3);
+        input[type="password"] {
+            flex: 1;
+            background: #111;
+            border: 1px solid var(--spy-red);
+            color: #ffcccc;
+            padding: 15px;
+            font-family: 'Special Elite', monospace;
+            font-size: 1.3rem;
+            letter-spacing: 5px;
+            text-align: center;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        input[type="password"]:focus {
+            border-color: var(--spy-red-bright);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .verify-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            background: var(--spy-red);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .verify-btn:hover {
+            background: var(--spy-red-bright);
+            box-shadow: 0 0 15px var(--spy-red-bright);
+        }
+
+        .error-msg {
+            color: var(--spy-red-bright);
+            font-family: 'Special Elite', monospace;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            display: none;
         }
 
         /* --- LIVE ENVELOPE / CARD --- */
@@ -291,7 +307,6 @@
             padding: 30px;
             position: relative;
             overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         .mission-card::before {
@@ -322,7 +337,6 @@
             margin-bottom: 25px;
         }
 
-        /* --- PROTOCOLS & CONTROLS --- */
         .protocols-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -336,6 +350,8 @@
             .protocols-grid { grid-template-columns: 1fr; }
             .main-title { font-size: 2.2rem; }
             .subtitle { font-size: 1rem; }
+            .input-group { flex-direction: column; }
+            .verify-btn { padding: 15px; }
         }
 
         .protocol-item strong {
@@ -352,25 +368,6 @@
             text-decoration: none;
             font-weight: bold;
             border-bottom: 1px dashed var(--gold-primary);
-        }
-
-        /* --- COUNTDOWN TIMER --- */
-        .timer-sector {
-            background: #000;
-            border: 1px solid #222;
-            padding: 20px;
-            text-align: center;
-            margin-top: 30px;
-            border-radius: 4px;
-        }
-
-        .timer-display {
-            font-family: 'Special Elite', monospace;
-            font-size: 2.2rem;
-            color: var(--spy-red-bright);
-            letter-spacing: 4px;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
-            margin-top: 5px;
         }
 
         /* --- THE TWIST ACTUATOR --- */
@@ -428,6 +425,8 @@
 </head>
 <body>
 
+    <audio id="spy-soundtrack" src="music.mp3" loop></audio>
+
     <svg width="0" height="0" style="position: absolute;">
         <defs>
             <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -439,18 +438,16 @@
     </svg>
 
     <div class="audio-container">
-        <button class="audio-btn" onclick="toggleAudioPlaceholder()">🎵 Toggle Soundtrack</button>
+        <button id="audio-toggle-btn" class="audio-btn" onclick="toggleAudioEngine()">🎵 Play Soundtrack</button>
     </div>
 
     <section id="landing-page">
         <div class="spotlight-left"></div>
         <div class="spotlight-right"></div>
         
-        <svg class="trophy-svg" viewBox="0 0 24 24">
-            <path d="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M11,16H13V18H16V20H8V18H11V16M18,6V9A6,6 0 0,1 12,15A6,6 0 0,1 6,9V6H8V9A4,4 0 0,0 12,13A4,4 0 0,0 16,9V6H18Z" />
-        </svg>
+        <img src="logo.png" alt="SPADE Logo" class="logo-img">
 
-        <h1 class="main-title">OPERATION: GOLDEN FINALE</h1>
+        <h1 class="main-title">SPADE : FINAL MISSION</h1>
         <p class="subtitle">Classified Mission Briefing</p>
         
         <button class="action-btn" onclick="activateDossier()">ACCESS CONFIDENTIAL FILE</button>
@@ -478,31 +475,21 @@
                 Because every retiree is a suspect.
             </div>
 
-            <section class="agent-select-sector">
+            <section class="login-sector" id="auth-zone">
                 <div class="sector-title">
-                    <span>➔</span> SELECT YOUR DESIGNATION:
+                    <span>⚡</span> ENTER YOUR AGENT ID:
                 </div>
-                <select id="agent-selector" onchange="engageAgentMission(this.value)">
-                    <option value="" disabled selected>-- Identify Yourself --</option>
-                    <option value="Alpha">Agent Alpha</option>
-                    <option value="Bravo">Agent Bravo</option>
-                    <option value="Charlie">Agent Charlie</option>
-                    <option value="Delta">Agent Delta</option>
-                    <option value="Echo">Agent Echo</option>
-                    <option value="Foxtrot">Agent Foxtrot</option>
-                    <option value="Gamma">Agent Gamma</option>
-                    <option value="Hawk">Agent Hawk</option>
-                    <option value="Inferno">Agent Inferno</option>
-                    <option value="Jaguar">Agent Jaguar</option>
-                    <option value="Knight">Agent Knight</option>
-                </select>
+                <div class="input-group">
+                    <input type="password" id="agent-passcode" placeholder="•••••••" maxlength="7">
+                    <button class="verify-btn" onclick="verifyAgentCode()">Decrypt File</button>
+                </div>
+                <div class="error-msg" id="login-error">⚠️ INVALID ENCRYPTION PIN. ACCESS DENIED. CODES DO NOT MATCH COMMAND FILES.</div>
             </section>
 
             <section id="mission-envelope-container" class="mission-envelope hidden">
                 <div class="mission-card">
                     <div class="mission-header">⚡ Current Tactical Objective</div>
-                    <div class="mission-objective" id="mission-objective-text">
-                        </div>
+                    <div class="mission-objective" id="mission-objective-text"></div>
 
                     <div class="sector-title" style="margin-top: 30px;">
                         <span>➔</span> OPERATIONAL PROTOCOLS:
@@ -511,19 +498,19 @@
                     <div class="protocols-grid">
                         <div class="protocol-item">
                             <strong>Protocol 1: Window of Opportunity</strong>
-                            Every mission must be completed before the performance segment begins.
+                            Every mission must be done during the event and completed before 9:30PM.
                         </div>
                         <div class="protocol-item">
                             <strong>Protocol 2: Verifiable Proof</strong>
-                            Agents must submit either a photo or a video as evidence of completion.
+                            Agents must submit either a photo or a video as evidence of completion, UNLESS it is stated in the mission that they shall present the evidence at the end of event.
                         </div>
                         <div class="protocol-item">
                             <strong>Protocol 3: Comms Uplink</strong>
-                            All evidence must be sent to Mission Control via WhatsApp: <a href="https://wa.me/1234567890" class="contact-link" target="_blank">[CONTACT CONTROL]</a>
+                            All evidence must be sent to the Handler via WhatsApp: <a href="https://wa.me/60104651055" class="contact-link" target="_blank">[HANDLER]</a>
                         </div>
                         <div class="protocol-item">
                             <strong>Protocol 4: Radio Silence</strong>
-                            Missions are confidential. Do not reveal your objective to fellow operatives.
+                            Missions are confidential. Do not reveal your objective to fellow operatives. For any inquiries regarding your mission, agents may direct all questions only to the designated handlers for further assistance. 
                         </div>
                         <div class="protocol-item">
                             <strong>Protocol 5: Asset Premium</strong>
@@ -535,27 +522,19 @@
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <section class="timer-sector">
-                <div class="sector-title" style="justify-content: center; margin: 0;">
-                    ⏳ TIME REMAINING UNTIL MISSION DEADLINE
-                </div>
-                <div class="timer-display" id="countdown-clock">02:00:00</div>
-            </section>
-
-            <section class="twist-sector">
-                <button class="twist-lock-btn" id="twist-btn" onclick="revealTheTwist()">REVEAL CLASSIFIED INFORMATION</button>
-                
-                <div class="twist-reveal-box hidden" id="twist-box">
-                    <h2 class="twist-title">🚨 MISSION TWIST 🚨</h2>
-                    <div class="twist-body">
-                        You thought you were the only agent.<br><br>
-                        <strong>YOU WERE WRONG.</strong><br><br>
-                        ALL 11 RETIREES RECEIVED A SECRET MISSION.<br><br>
-                        Everyone is an agent.<br>
-                        Everyone is under investigation.<br><br>
-                        Good luck.
+                <div class="twist-sector">
+                    <button class="twist-lock-btn" id="twist-btn" onclick="revealTheTwist()">REVEAL CLASSIFIED INFORMATION</button>
+                    
+                    <div class="twist-reveal-box hidden" id="twist-box">
+                        <h2 class="twist-title">🚨 COUNTER-INTELLIGENCE ALERT 🚨</h2>
+                        <div class="twist-body">
+                            You think you are the only operative assigned to this hall tonight?<br><br>
+                            <strong>YOU ARE NOT ALONE.</strong><br><br>
+                            Our radar indicates there is <span style="color: var(--spy-red-bright); font-weight: bold;">at least 2 more secret agent</span> embedded inside your committee pool.<br><br>
+                            They have different clearance codes, and they have their own secret objectives.<br><br>
+                            <span style="color: var(--gold-primary); font-weight: bold;">CRITICAL DIRECTIVE:</span> You must not expose yourself under any circumstances. Keep your identity completely secret and do not tell a soul. If you leak your mission parameters to anyone, you will be compromised.
+                        </div>
                     </div>
                 </div>
             </section>
@@ -564,82 +543,75 @@
     </main>
 
     <script>
-        // Mission Map Object matching the 11 Agents
-        const agentMissions = {
-            "Alpha": "Take a selfie with the Advisor.",
-            "Bravo": "Get a photo with someone from a different batch.",
-            "Charlie": "Make 3 people laugh within 10 minutes.",
-            "Delta": "Convince someone you were a secret spy all along.",
-            "Echo": "Find someone wearing black and take a picture together.",
-            "Foxtrot": "Ask a committee member for a secret password.",
-            "Gamma": "Take a group photo with at least 5 people.",
-            "Hawk": "Get a photo with the youngest member present.",
-            "Inferno": "Make someone say 'Mission Accomplished'.",
-            "Jaguar": "Shake hands with 10 different people.",
-            "Knight": "Find another retiree and take a dramatic spy pose photo."
+        // Updated Secure Code Database Mapping
+        const accessVault = {
+            "HAZ8472": { name: "Hazman The Jazzman", mission: "Randomly wink at 3 different committee members. Make sure they saw your wink, and record their reaction." },
+            "AIS5931": { name: "Aishah The Geisha", mission: "Get 2 committee members to reveal their hidden talent. Present/tell us at the end of the event." },
+            "WAN7264": { name: "Wan The One", mission: "Randomly start pinching the cheeks of 2 different committee members, record their reaction, then walk away with no explanation." },
+            "STF1849": { name: "Steff The Best", mission: "Make a secret handshake with one other committee member. Show us your secret handshake at the end of the event." },
+            "NAN9602": { name: "Nana The Katana", mission: "Record one tiktok trend with other committee members." },
+            "ELL3158": { name: "Ell The Rebel", mission: "Recreate a famous pose from a movie poster with a few other committee members. Take a picture of you guys recreating the pose." },
+            "AMR6729": { name: "Amir The Musketeer", mission: "Get a committee member/advisor to teach you something. Present/tell us what you have learned, at the end of the event." },
+            "WIY4087": { name: "Wiyah The Sapphire", mission: "Randomly start braiding the hair of 2 different committees. Take a picture of them after you are done braiding their hair." },
+            "DYL2516": { name: "Dyla The Wild Smiler", mission: "Take a funny picture of 3 different committee members. The picture must be from during the event." },
+            "AND7391": { name: "Annd The Grand", mission: "Play with Arik's nose. Record the mission." },
+            "ARK8643": { name: "Arik The Maverick", mission: "Take a picture of 2 people (committee members/advisors) that you think look alike." }
         };
 
-        // Smoothly Transition from Landing Page to Interactive Dossier Hub
         function activateDossier() {
-            document.getElementById('landing-page').scrollIntoView({ behavior: 'smooth' });
-            setTimeout(() => {
-                document.getElementById('landing-page').classList.add('hidden');
-                const hub = document.getElementById('interactive-hub');
-                hub.classList.remove('hidden');
-                // Auto start standard timer session once logged in
-                startMissionTimer(120); // 120 minutes until performance window opens
-            }, 400);
+            document.getElementById('landing-page').classList.add('hidden');
+            document.getElementById('interactive-hub').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            const audioTrack = document.getElementById('spy-soundtrack');
+            const btn = document.getElementById('audio-toggle-btn');
+            audioTrack.play().then(() => {
+                btn.textContent = "⏸ Mute Soundtrack";
+                btn.classList.add('playing');
+            }).catch(() => {
+                // Browser security handling for autoplay
+            });
         }
 
-        // Handle Agent selection and reveal corresponding mission objective
-        function engageAgentMission(agentName) {
+        function verifyAgentCode() {
+            const inputCode = document.getElementById('agent-passcode').value.trim();
+            const errorBanner = document.getElementById('login-error');
             const envelope = document.getElementById('mission-envelope-container');
             const objectiveText = document.getElementById('mission-objective-text');
-            
-            if (agentMissions[agentName]) {
-                objectiveText.innerHTML = `<strong>AGENT ${agentName.toUpperCase()}:</strong> ${agentMissions[agentName]}`;
+
+            if (accessVault[inputCode]) {
+                errorBanner.style.display = "none";
+                const agent = accessVault[inputCode];
+                objectiveText.innerHTML = `<strong>DESIGNATION:</strong> ${agent.name}<br><br><strong>YOUR UNIQUE MISSION:</strong> ${agent.mission}`;
                 envelope.classList.remove('hidden');
+                document.getElementById('auth-zone').style.opacity = "0.5";
                 objectiveText.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                envelope.classList.add('hidden');
+                errorBanner.style.display = "block";
             }
         }
 
-        // Countdown Timer Engine (Minutes parameter based execution)
-        function startMissionTimer(durationInMinutes) {
-            let timer = durationInMinutes * 60;
-            const display = document.getElementById('countdown-clock');
-            
-            const interval = setInterval(function () {
-                let hours = parseInt(timer / 3600, 10);
-                let minutes = parseInt((timer % 3600) / 60, 10);
-                let seconds = parseInt(timer % 60, 10);
-
-                hours = hours < 10 ? "0" + hours : hours;
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                display.textContent = hours + ":" + minutes + ":" + seconds;
-
-                if (--timer < 0) {
-                    clearInterval(interval);
-                    display.textContent = "MISSION TIME EXPIRED";
-                    display.style.color = "#555";
-                }
-            }, 1000);
-        }
-
-        // Cinematic Reveal for Event Finale Twist Ending
         function revealTheTwist() {
-            const twistButton = document.getElementById('twist-btn');
+            document.getElementById('twist-btn').classList.add('hidden');
             const twistBox = document.getElementById('twist-box');
-            
-            twistButton.classList.add('hidden');
             twistBox.classList.remove('hidden');
             twistBox.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Placeholder notice alerting user to background audio operations
-        function toggleAudioPlaceholder() {
-            alert("🔊 Sound Effect Activated: Connect a real HTML5 Audio context stream here to play cinematic themes like James Bond or Mission Impossible!");
+        function toggleAudioEngine() {
+            const audioTrack = document.getElementById('spy-soundtrack');
+            const btn = document.getElementById('audio-toggle-btn');
+
+            if (audioTrack.paused) {
+                audioTrack.play();
+                btn.textContent = "⏸ Mute Soundtrack";
+                btn.classList.add('playing');
+            } else {
+                audioTrack.pause();
+                btn.textContent = "🎵 Play Soundtrack";
+                btn.classList.remove('playing');
+            }
         }
     </script>
 </body>
